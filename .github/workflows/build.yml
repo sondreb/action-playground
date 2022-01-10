@@ -1,0 +1,40 @@
+name: Build
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  
+  buildTestRelease:
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node_version: [12.x]
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+    
+    env:
+      PROJECT_NAME: 'action-release'
+
+    steps:
+
+    - uses: actions/checkout@v1
+      name: Checkout
+
+    - name: Release
+      uses: sondreb/action-release@main
+      with:
+        verbose: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        #files: "action.js;README.md"
+        folder: "./test/"
+        draft: true
+        prerelease: true
+        body: 'A little test - some updated text!'
+        #body: ${{outputs.changelog.}}
+        name: "Draft Release (Release ${{env.VERSION}})"
+        tag: v${{env.VERSION}}
