@@ -31,7 +31,7 @@ jobs:
         verbose: true
         token: ${{ secrets.GITHUB_TOKEN }}
         #files: "action.js;README.md"
-        folder: "./test/"
+        folder: "./files/"
         draft: true
         prerelease: true
         body: 'A little test - some updated text!'
